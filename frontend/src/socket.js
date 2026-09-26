@@ -1,0 +1,161 @@
+// frontend/src/socket.js
+
+
+import { io } from "socket.io-client";
+
+
+
+
+// ===============================
+// SOCKET SERVER URL
+// ===============================
+
+
+const SOCKET_URL =
+
+    import.meta.env.VITE_SOCKET_URL ||
+
+    "http://localhost:5000";
+
+
+
+
+
+
+
+
+
+// ===============================
+// CREATE SOCKET
+// ===============================
+
+
+const socket = io(
+
+    SOCKET_URL,
+
+    {
+
+
+        autoConnect: false,
+
+
+        withCredentials: true,
+
+
+
+        reconnection: true,
+
+
+
+        reconnectionAttempts: Infinity,
+
+
+
+        reconnectionDelay: 1000
+
+
+
+    }
+
+
+);
+
+
+
+
+
+
+
+
+
+// ===============================
+// SOCKET DEBUG
+// ===============================
+
+
+socket.on(
+
+    "connect",
+
+    () => {
+
+
+        console.log(
+
+            "Socket connected:",
+
+            socket.id
+
+        );
+
+
+    }
+
+);
+
+
+
+
+
+
+
+
+
+socket.on(
+
+    "disconnect",
+
+    (reason) => {
+
+
+        console.log(
+
+            "Socket disconnected:",
+
+            reason
+
+        );
+
+
+    }
+
+);
+
+
+
+
+
+
+
+
+
+socket.on(
+
+    "connect_error",
+
+    (error) => {
+
+
+        console.error(
+
+            "Socket connection error:",
+
+            error.message
+
+        );
+
+
+    }
+
+);
+
+
+
+
+
+
+
+
+
+export default socket;
